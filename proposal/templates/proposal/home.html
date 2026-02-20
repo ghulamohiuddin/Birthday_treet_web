@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Bhi </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        #content {
+            position: relative;
+            z-index: 1;
+        }
+
+        #yesBtn {
+            transition: all 0.5s ease;
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #noBtn {
+            transition: all 0.4s ease;
+            z-index: 11;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bunny-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bunny {
+            width: 160px;
+            height: 160px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #yesBtn.fixed-mode {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #noBtn.fixed-mode {
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-100">
+
+<div id="content" class="flex items-center justify-center h-screen">
+    <div class="text-center">
+        
+        <!-- Same Bunny -->
+        <div class="bunny-container mb-8">
+            <!-- Keep your same SVG bunny here (unchanged) -->
+            <!-- PASTE SAME SVG YOU ALREADY HAVE -->
+        </div>
+
+        <h1 class="text-5xl font-bold text-pink-600 mb-4 px-4">
+            Happy Birthday Bhi 🎉
+        </h1>
+
+        <h2 class="text-3xl font-semibold text-purple-600 mb-12">
+            Treet dy dy bhi
+        </h2>
+
+        <!-- Button Container -->
+        <div class="button-container">
+            
+            <!-- YES -->
+            <button id="yesBtn"
+                    onclick="sayYes()"
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold rounded-2xl shadow-lg px-8 py-4 text-xl">
+                Theek ha :)
+            </button>
+
+            <!-- NO -->
+            <button id="noBtn"
+                    onclick="sayNo()"
+                    class="bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl shadow-lg px-6 py-3 text-lg">
+                Nai :(
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+let noMessages = [
+    "Nai 😏",
+    "Tu mera bhi ni ho sakta soch ly 😤",
+    "Na krr yr…",
+    "Itna kanjoos?",
+    "Bas ek treet hi to hai 🥺",
+    "Aise dost hotay hain?",
+    "Sharam kr le 😂",
+    "Final bol raha hun 😌",
+    "Last chance bhi 😤",
+    "Phir mat kehna bataya nahi 😎"
+];
+
+let noCount = 0;
+let yesWidth = 160;
+let yesHeight = 70;
+let yesFontSize = 24;
+let animationStarted = false;
+
+function startAnimation() {
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    
+    yesBtn.classList.add("fixed-mode");
+    noBtn.classList.add("fixed-mode");
+
+    yesBtn.style.width = yesWidth + "px";
+    yesBtn.style.height = yesHeight + "px";
+    yesBtn.style.fontSize = yesFontSize + "px";
+
+    animationStarted = true;
+}
+
+function positionNoButton() {
+    const noBtn = document.getElementById("noBtn");
+    const yesCenterX = window.innerWidth / 2;
+    const yesCenterY = window.innerHeight / 2;
+
+    const minDistance = Math.max(yesWidth, yesHeight) / 2 + 120;
+
+    const angle = (noCount * 47) % 360;
+    const x = minDistance * Math.cos(angle * Math.PI / 180);
+    const y = minDistance * Math.sin(angle * Math.PI / 180);
+
+    let finalX = yesCenterX + x;
+    let finalY = yesCenterY + y;
+
+    const noBtnWidth = 180;
+    const noBtnHeight = 60;
+
+    finalX = Math.max(noBtnWidth/2 + 10, Math.min(window.innerWidth - noBtnWidth/2 - 10, finalX));
+    finalY = Math.max(noBtnHeight/2 + 10, Math.min(window.innerHeight - noBtnHeight/2 - 10, finalY));
+
+    noBtn.style.left = finalX + "px";
+    noBtn.style.top = finalY + "px";
+    noBtn.style.transform = "translate(-50%, -50%)";
+}
+
+function sayNo() {
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    if (!animationStarted) {
+        startAnimation();
+    }
+
+    noBtn.innerText = noMessages[noCount % noMessages.length];
+    noCount++;
+
+    const growthFactor = 1.17;
+    yesWidth *= growthFactor;
+    yesHeight *= growthFactor;
+    yesFontSize *= 1.1;
+
+    yesBtn.style.width = yesWidth + "px";
+    yesBtn.style.height = yesHeight + "px";
+    yesBtn.style.fontSize = yesFontSize + "px";
+
+    positionNoButton();
+
+    if (yesWidth > Math.min(window.innerWidth, window.innerHeight) * 1.2) {
+        yesBtn.style.width = "100vw";
+        yesBtn.style.height = "100vh";
+        yesBtn.style.borderRadius = "0";
+        yesBtn.style.fontSize = "5rem";
+
+        noBtn.style.opacity = "0";
+        noBtn.style.pointerEvents = "none";
+    }
+}
+
+function sayYes() {
+    window.location.href = "/yes/";
+}
+
+</script>
+
+</body>
+</html>

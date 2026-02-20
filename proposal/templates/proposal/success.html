@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Treet Confirmed </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .bounce {
+            animation: bounce 0.6s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-yellow-200 via-pink-200 to-purple-200 flex items-center justify-center h-screen overflow-hidden relative">
+
+<!-- Floating emojis -->
+<div class="absolute top-10 left-20 text-6xl float">🎂</div>
+<div class="absolute top-20 right-20 text-5xl float" style="animation-delay:0.5s;">🍰</div>
+<div class="absolute bottom-20 left-32 text-5xl float" style="animation-delay:1s;">🎉</div>
+<div class="absolute bottom-32 right-40 text-6xl float" style="animation-delay:1.5s;">🥳</div>
+
+<div class="text-center">
+
+    <!-- Bunny dancing -->
+    <div class="w-64 mx-auto mb-8 bounce">
+        <!-- PASTE SAME HAPPY BUNNY SVG HERE (same as before but dancing version if you want) -->
+    </div>
+
+    <h1 class="text-5xl font-bold text-pink-600 mb-6">
+        Yayyyy 🎉
+    </h1>
+
+    <h2 class="text-3xl font-semibold text-purple-700">
+        Treet confirm hogai <3    </h2>
+
+    <p class="text-xl text-pink-700 mt-6">
+        Ab late mat kre
+    </p>
+
+</div>
+
+</body>
+</html>
